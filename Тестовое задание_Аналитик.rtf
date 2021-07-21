@@ -41,11 +41,14 @@ I. \uc0\u1047 \u1072 \u1076 \u1072 \u1095 \u1091  \u1087 \u1088 \u1086 \u1089 \u
 # \uc0\u1057 \u1086 \u1079 \u1076 \u1072 \u1085 \u1080 \u1077  \u1073 \u1072 \u1079 \u1099  \u1076 \u1072 \u1085 \u1085 \u1099 \u1093 \
 \pard\pardeftab720\ri-9\sl276\slmult1\partightenfactor0
 
-\f1 \cf0 DROP DATABASE `tasks`;\
-CREATE DATABASE `tasks`;\
+\f1 \cf0 CREATE DATABASE `tasks`;\
 USE `tasks`;\
-# \uc0\u1057 \u1086 \u1079 \u1076 \u1072 \u1085 \u1080 \u1077  \u1090 \u1072 \u1073 \u1083 \u1080 \u1094 , \u1080 \u1079  \u1082 \u1086 \u1090 \u1086 \u1088 \u1099 \u1093  \u1089 \u1086 \u1089 \u1090 \u1086 \u1080 \u1090  \u1073 \u1072 \u1079 \u1072  \u1076 \u1072 \u1085 \u1085 \u1099 \u1093 \
-CREATE TABLE `clients` (\
+\pard\pardeftab720\ri-9\sl276\slmult1\partightenfactor0
+
+\f0 \cf0 # \uc0\u1057 \u1086 \u1079 \u1076 \u1072 \u1085 \u1080 \u1077  \u1090 \u1072 \u1073 \u1083 \u1080 \u1094 , \u1080 \u1079  \u1082 \u1086 \u1090 \u1086 \u1088 \u1099 \u1093  \u1089 \u1086 \u1089 \u1090 \u1086 \u1080 \u1090  \u1073 \u1072 \u1079 \u1072  \u1076 \u1072 \u1085 \u1085 \u1099 \u1093 \
+\pard\pardeftab720\ri-9\sl276\slmult1\partightenfactor0
+
+\f1 \cf0 CREATE TABLE `clients` (\
 client_id INT AUTO_INCREMENT NOT NULL, \
 name VARCHAR(45) NOT NULL, \
 region VARCHAR(50), \
@@ -54,7 +57,7 @@ PRIMARY KEY (client_id) );\
 CREATE TABLE `drivers` (\
 driver_id INT AUTO_INCREMENT NOT NULL, \
 name VARCHAR(40),\
-PRIMARY KEY (driver_id));\
+PRIMARY KEY (idriver_id));\
 \
 CREATE TABLE `items`(\
 item_id INT AUTO_INCREMENT NOT NULL,\
@@ -72,11 +75,17 @@ item_id INT,\
 deliv_problem BIT, \
 driver_id INT,\
 PRIMARY KEY (order_id),\
-FOREIGN KEY (item_id) REFERENCES items(item_id),\
-FOREIGN KEY (client_id) REFERENCES clients(client_id)\
-);\
-# \uc0\u1047 \u1072 \u1087 \u1086 \u1083 \u1085 \u1077 \u1085 \u1080 \u1077  \u1090 \u1072 \u1073 \u1083 \u1080 \u1094  \u1076 \u1072 \u1085 \u1085 \u1099 \u1084 \u1080 \
-INSERT INTO `clients` (name,region) VALUES ('Lupin Adam Victorovich','Moscow'),\
+CONSTRAINT `on_item` FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE ON UPDATE CASCADE,\
+\pard\pardeftab720\ri-9\sl276\slmult1\partightenfactor0
+\cf0 CONSTRAINT `on_client` FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE ON UPDATE CASCADE\
+\pard\pardeftab720\ri-9\sl276\slmult1\partightenfactor0
+\cf0 );\
+\pard\pardeftab720\ri-9\sl276\slmult1\partightenfactor0
+
+\f0 \cf0 # \uc0\u1047 \u1072 \u1087 \u1086 \u1083 \u1085 \u1077 \u1085 \u1080 \u1077  \u1090 \u1072 \u1073 \u1083 \u1080 \u1094  \u1076 \u1072 \u1085 \u1085 \u1099 \u1084 \u1080 \
+\pard\pardeftab720\ri-9\sl276\slmult1\partightenfactor0
+
+\f1 \cf0 INSERT INTO `clients` (name,region) VALUES ('Lupin Adam Victorovich','Moscow'),\
 ('Bobrov Ivan Nikolaevich','S-Peterburg'),\
 ('Hohlov Victor Yurievich','LA'),\
 ('Lilev Winsent Borisovich','New-York'),\
@@ -101,10 +110,10 @@ INSERT INTO `orders` (item_num, client_id, item_id, deliv_problem, driver_id) VA
 (2, 5, 2, 0, 5), (1, 5, 2, 1, 3), (7, 1, 3, 0, 4), (1, 1, 1, 1, 2),\
 (3, 2, 4, 1, 5), (6, 4, 2, 1, 5);\
 \
-UPDATE `orders` SET `dater` = '2018-01-01 22:12:10' WHERE order_id BETWEEN 1 AND 4;\
-UPDATE `orders` SET `dater` = '2020-04-05 02:12:10' WHERE order_id BETWEEN 5 AND 7;\
-UPDATE `orders` SET `dater` = '2018-02-01 20:12:10' WHERE order_id BETWEEN 8 AND 11;\
-UPDATE `orders` SET `dater` = '2021-09-04 08:12:10' WHERE order_id BETWEEN 12 AND 14;\
+UPDATE `orders` SET `dater` = '2018-01-01 22:12:10' WHERE id BETWEEN 1 AND 4;\
+UPDATE `orders` SET `dater` = '2020-04-05 02:12:10' WHERE id BETWEEN 5 AND 7;\
+UPDATE `orders` SET `dater` = '2018-02-01 20:12:10' WHERE id BETWEEN 8 AND 11;\
+UPDATE `orders` SET `dater` = '2021-09-04 08:12:10' WHERE id BETWEEN 12 AND 14;\
 \
 \pard\pardeftab720\ri-9\sl276\slmult1\partightenfactor0
 
